@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const readline = require('readline');
+const { start } = require('repl');
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -31,13 +32,18 @@ const printStacks = () => {
 
 // Next, what do you think this function should do?
 const movePiece = () => {
-  // Your code here
+
 
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
-  // Your code here
+const isLegal = (endStack, tower) => {
+
+  for(let i =0; i < stacks[endStack].length(); i++){
+    
+  }
+
+
 
 }
 
@@ -49,7 +55,21 @@ const checkForWin = () => {
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
-  // Your code here
+
+  console.log(stacks[startStack])
+
+  //takes item at end of stack and assigns to variable before removing it
+  let tower = stacks[startStack].pop()
+
+  //calls is legal to make sure the move is allowed
+  if(isLegal(endStack, tower)){
+
+
+
+    //push the stored value on the end stack
+    stacks[endStack].push(tower)
+  }
+
 
 }
 
