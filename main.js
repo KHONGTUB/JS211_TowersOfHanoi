@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const compareSolution = require('javascripting/lib/compare-solution');
 const readline = require('readline');
 const { start } = require('repl');
 const rl = readline.createInterface({
@@ -37,32 +38,47 @@ const movePiece = () => {
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = (endStack, tower) => {
+const isLegal = (startStack, endStack) => {
 
-  for(let i =0; i < stacks[endStack].length(); i++){
+  let tower = stacks[startStack].pop()
+  
+
+  for(let i =0; i < stacks[endStack].length; i++){
+    if(stacks[endStack][i] < tower){
+      console.log("illegal move")
+      return false
+    }
     
   }
 
-
+  return true
 
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
-  // Your code here
+  
 
 }
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
 
-  console.log(stacks[startStack])
 
+  let index = (stacks[startStack].length - 1)
+
+
+
+  let tower = stacks[startStack][index]
+  console.log(tower)
   //takes item at end of stack and assigns to variable before removing it
-  let tower = stacks[startStack].pop()
 
   //calls is legal to make sure the move is allowed
-  if(isLegal(endStack, tower)){
+  if(isLegal(startStack, endStack)){
+
+
+
+    console.log("Went into is legal statement")
 
 
 
