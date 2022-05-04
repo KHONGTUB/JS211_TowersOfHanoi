@@ -58,8 +58,7 @@ const isLegal = (startStack, endStack) => {
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
 
-  let num = 4
-
+  let num = stacks.b.length
   let count = 0
 
 
@@ -71,6 +70,7 @@ const checkForWin = () => {
     num --
     
   }
+
 
 
   if(count === 4){
@@ -152,7 +152,7 @@ if (typeof describe === 'function') {
     it('should detect a win', () => {
       stacks = { a: [], b: [4, 3, 2, 1], c: [] };
       assert.equal(checkForWin(), true);
-      stacks = { a: [1], b: [4, 3, 2], c: [] };
+      stacks = { a: [4], b: [3, 2, 1], c: [] };
       assert.equal(checkForWin(), false);
     });
   });
