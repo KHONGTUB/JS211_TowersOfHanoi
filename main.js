@@ -58,12 +58,14 @@ const isLegal = (startStack, endStack) => {
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
 
-  let num = stacks.b.length
+
+
+  let num = stacks.a.length + stacks.b.length + stacks.c.length
   let count = 0
 
 
-  for(let i = 0; i < stacks.b.length; i++){
-    if(stacks.b[i] === num){
+  for(let i = 0; i < stacks.b.length || i < stacks.c.length; i++){
+    if(stacks.b[i] === num || stacks.c[i] === num){
       count ++
     }
 
@@ -71,9 +73,11 @@ const checkForWin = () => {
     
   }
 
+  console.log(count)
 
+// console.log(stacks.a.length + stacks.b.length + stacks.c.length)
 
-  if(count === 4){
+  if(count === (stacks.a.length + stacks.b.length + stacks.c.length)){
     return true
   }
   
@@ -95,12 +99,6 @@ const towersOfHanoi = (startStack, endStack) => {
 
   //calls is legal to make sure the move is allowed
   if(isLegal(startStack, endStack)){
-
-
-
-    console.log("Went into is legal statement")
-
-
 
     //push the stored value on the end stack
     stacks[endStack].push(tower)
@@ -153,6 +151,14 @@ if (typeof describe === 'function') {
       stacks = { a: [], b: [4, 3, 2, 1], c: [] };
       assert.equal(checkForWin(), true);
       stacks = { a: [4], b: [3, 2, 1], c: [] };
+      assert.equal(checkForWin(), false);
+    });
+  });
+  describe('#checkForWin()', () => {
+    it('should detect a win in both B and C stack', () => {
+      stacks = { a: [], b: [], c: [4, 3, 2, 1] };
+      assert.equal(checkForWin(), true);
+      stacks = { a: [], b: [4], c: [3, 2, 1] };
       assert.equal(checkForWin(), false);
     });
   });
