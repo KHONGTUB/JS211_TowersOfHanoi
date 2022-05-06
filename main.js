@@ -32,20 +32,20 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
-
+const movePiece = (startStack, endStack) => {
+  let tower = stacks[startStack].pop()
+  stacks[endStack].push(tower)
 
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 const isLegal = (startStack, endStack) => {
 
-  let tower = stacks[startStack].pop()
+  let tower = (stacks[startStack].length - 1)
   
 
   for(let i =0; i < stacks[endStack].length; i++){
     if(stacks[endStack][i] < tower){
-      console.log("illegal move")
       return false
     }
     
@@ -73,10 +73,6 @@ const checkForWin = () => {
     
   }
 
-  console.log(count)
-
-// console.log(stacks.a.length + stacks.b.length + stacks.c.length)
-
   if(count === (stacks.a.length + stacks.b.length + stacks.c.length)){
     return true
   }
@@ -89,19 +85,15 @@ const checkForWin = () => {
 const towersOfHanoi = (startStack, endStack) => {
 
 
-  let index = (stacks[startStack].length - 1)
 
-
-
-  let tower = stacks[startStack][index]
-  console.log(tower)
   //takes item at end of stack and assigns to variable before removing it
 
   //calls is legal to make sure the move is allowed
   if(isLegal(startStack, endStack)){
 
     //push the stored value on the end stack
-    stacks[endStack].push(tower)
+    movePiece(startStack, endStack)
+
   }
 
 
@@ -158,7 +150,7 @@ if (typeof describe === 'function') {
     it('should detect a win in both B and C stack', () => {
       stacks = { a: [], b: [], c: [4, 3, 2, 1] };
       assert.equal(checkForWin(), true);
-      stacks = { a: [], b: [4], c: [3, 2, 1] };
+      stacks = { a: [], b: [4, 3], c: [2, 1] };
       assert.equal(checkForWin(), false);
     });
   });
