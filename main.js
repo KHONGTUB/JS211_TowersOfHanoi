@@ -41,11 +41,14 @@ const movePiece = (startStack, endStack) => {
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 const isLegal = (startStack, endStack) => {
 
-  let tower = (stacks[startStack].length - 1)
+  let tower = stacks[startStack][stacks[startStack].length - 1]
+
   
 
   for(let i =0; i < stacks[endStack].length; i++){
+
     if(stacks[endStack][i] < tower){
+
       return false
     }
     
@@ -74,6 +77,7 @@ const checkForWin = () => {
   }
 
   if(count === (stacks.a.length + stacks.b.length + stacks.c.length)){
+    console.log("You won")
     return true
   }
   
