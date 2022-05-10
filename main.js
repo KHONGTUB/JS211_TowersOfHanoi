@@ -33,6 +33,7 @@ const printStacks = () => {
 
 // Next, what do you think this function should do?
 const movePiece = (startStack, endStack) => {
+  //pops number from array and then pushes onto different array
   let tower = stacks[startStack].pop()
   stacks[endStack].push(tower)
 
@@ -41,12 +42,14 @@ const movePiece = (startStack, endStack) => {
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
 const isLegal = (startStack, endStack) => {
 
+  //set variable tower to item at last index
   let tower = stacks[startStack][stacks[startStack].length - 1]
 
   
-
+  //for loop to loop through the endstack
   for(let i =0; i < stacks[endStack].length; i++){
 
+    //if statement to prevent move if piece wanting to be moved is greater than any piece in endstack
     if(stacks[endStack][i] < tower){
 
       return false
@@ -63,11 +66,15 @@ const checkForWin = () => {
 
 
 
+  //set num to total number of items in all 3 arrays and the counter to zero
   let num = stacks.a.length + stacks.b.length + stacks.c.length
   let count = 0
 
 
+  //for loop to loop through both stacks b and c
   for(let i = 0; i < stacks.b.length || i < stacks.c.length; i++){
+
+    //if statement saying that if item in current index is equal to number increase counter
     if(stacks.b[i] === num || stacks.c[i] === num){
       count ++
     }
@@ -76,6 +83,7 @@ const checkForWin = () => {
     
   }
 
+  //if statement saying that if count is equal to total numbers in the arrays then a win has been detected
   if(count === (stacks.a.length + stacks.b.length + stacks.c.length)){
     console.log("You won")
     return true
@@ -95,8 +103,9 @@ const towersOfHanoi = (startStack, endStack) => {
   //calls is legal to make sure the move is allowed
   if(isLegal(startStack, endStack)){
 
-    //push the stored value on the end stack
+    //push the stored value on the end stack and then checks for win
     movePiece(startStack, endStack)
+    checkForWin()
 
   }
 
