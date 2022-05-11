@@ -51,12 +51,12 @@ const isLegal = (startStack, endStack) => {
 
     //if statement to prevent move if piece wanting to be moved is greater than any piece in endstack
     if(stacks[endStack][i] < tower){
-
+      //returns false meaning move is illegal
       return false
     }
     
   }
-
+  //return true meaning move is legal
   return true
 
 }
@@ -85,7 +85,6 @@ const checkForWin = () => {
 
   //if statement saying that if count is equal to total numbers in the arrays then a win has been detected
   if(count === (stacks.a.length + stacks.b.length + stacks.c.length)){
-    console.log("You won")
     return true
   }
   
@@ -117,7 +116,13 @@ const getPrompt = () => {
   rl.question('start stack: ', (startStack) => {
     rl.question('end stack: ', (endStack) => {
       towersOfHanoi(startStack, endStack);
-      getPrompt();
+      if(checkForWin()){
+        console.log("You Won!")
+        printStacks()
+      }else{
+        getPrompt();
+      }
+
     });
   });
 }
@@ -163,7 +168,28 @@ if (typeof describe === 'function') {
     it('should detect a win in both B and C stack', () => {
       stacks = { a: [], b: [], c: [4, 3, 2, 1] };
       assert.equal(checkForWin(), true);
+    });
+  });
+  describe('#towersOfHanoi()', () => {
+    it('should be able to move a block backwards', () => {
+      stacks = {
+        a: [],
+        b: [4, 3, 2, 1],
+        c: []
+      }
+      towersOfHanoi('b', 'a');
+      assert.deepEqual(stacks, { a: [1], b: [4, 3, 2], c: [] });
+    });
+  });
+  describe('#checkForWin()', () => {
+    it('should not detect a win with correct sequence in different stacks', () => {
       stacks = { a: [], b: [4, 3], c: [2, 1] };
+      assert.equal(checkForWin(), false);
+      stacks = { a: [4, 3], b: [2, 1], c: [] };
+      assert.equal(checkForWin(), false);
+      stacks = { a: [4], b: [3], c: [2, 1] };
+      assert.equal(checkForWin(), false);
+      stacks = { a: [], b: [4], c: [3, 2, 1] };
       assert.equal(checkForWin(), false);
     });
   });

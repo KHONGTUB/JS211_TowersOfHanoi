@@ -7,16 +7,16 @@
 // * Why are you get a warning in your console? Fix it.
 // * Delete these comment lines!
 
-const stone = null
+let stone = null
 
 // this function is called when a row is clicked. 
 // Open your inspector tool to see what is being captured and can be used.
 const selectRow = (row) => {
-  const currentRow = row.getAttribute("data-row")
+  // const currentRow = row.getAttribute("data-row")
   
-  console.log("Yay, we clicked an item", row)
-  console.log("Here is the stone's id: ", row.id)
-  console.log("Here is the stone's data-size: ", currentRow)
+  // console.log("Yay, we clicked an item", row)
+  // console.log("Here is the stone's id: ", row.id)
+  // console.log("Here is the stone's data-size: ", currentRow)
 
   pickUpStone(row.id)
 } 
@@ -25,6 +25,7 @@ const selectRow = (row) => {
 // but there might be something wrong with it...
 const pickUpStone = (rowID) => {
   const selectedRow = document.getElementById(rowID);
+  console.log(selectedRow)
   stone = selectedRow.removeChild(selectedRow.lastChild);
   console.log(stone)
 }
